@@ -1,33 +1,30 @@
 
-import java.awt.Color; 
-import java.awt.Graphics; 
-import javax.swing.JFrame;
-import javax.swing.JPanel; 
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage; 
 
-public class ChessBoard extends JPanel {
+public class ChessBoard {
 	
-	public void paint(Graphics g){
-		g.fillRect(100, 100, 400, 400);
-		for (int i = 100; i <= 400; i += 100) {
-			for (int j = 100; j <= 400; j += 100) {
-				g.clearRect(i,j , 50, 50);
-			}
-		} for (int i = 150; i <= 450; i += 100) {
-			for (int j = 150; j <= 450; j += 100 ){
-				g.clearRect(i, j, 50, 50);
+	public void makeBoard(){
+		Stage primaryStage = new Stage();
+		GridPane grid = new GridPane();
+		Scene scene = new Scene(grid);
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Chess");
+		Color[] color = {Color.BLACK,Color.GHOSTWHITE};  
+		Rectangle square = new Rectangle(); 
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				square.setWidth(2);
+				square.setHeight(2);
+				square.setFill(color[j % 2]);
+				GridPane.setRowIndex(square, i);
+				GridPane.setColumnIndex(square, j);
+				grid.getChildren().addAll(square);
 			}
 		}
-		
+		primaryStage.show();
 	}
-	public static void main(String[] args) {
-		JFrame Frame = new JFrame(); 
-		Frame.setSize(600,600); 
-		Frame.getContentPane().add(new ChessBoard()).setBackground(Color.blue);;
-		Frame.setLocationRelativeTo(null);
-		Frame.setBackground(Color.blue);
-		Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Frame.setVisible(true);
-
-	}
-
 }
